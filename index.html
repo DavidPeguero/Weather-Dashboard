@@ -11,12 +11,13 @@
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-    <header class="container-fluid text-center bg-dark text-white">
+    <header class="container-fluid text-center bg-dark text-white p-2">
         <h1>Weather Dashboard</h1>
     </header>
-    <div class="container-fluid">
+    <div class="container-fluid m-3 ">
         <div class="row">
             <div class="col col-4 flex  ">
+                <h3>Search for a City</h3>
                 <input class="text mt-2 w-100"type="text"/><br>
                 <button class="btn btn-primary my-2 w-100">Search for City</button>
                 <div class="border border-dark-subtle mb-2"></div>
@@ -25,7 +26,22 @@
                 </ul>
             </div>
             <div class="col col-8">
-                More Content
+                <div class="border border-black border-2">
+                    <h2 id="city">[City Name]</h2>
+                    <p id="temp">HOT</p>
+                    <p id="wind">winDEE</p>
+                    <p id="humidity">huMID</p>
+                </div>
+                <div id="forecast my-3">
+                    <h3>5-Day Forecast</h3>
+                    <ul class="d-flex day-list list-inline gap-5">
+                        <li class="day d-inline border border-black bg-dark text-light">Monday</li>
+                        <li class="day d-inline border border-black bg-dark text-light">Tuesday</li>
+                        <li class="day d-inline border border-black bg-dark text-light">Wednesday</li>
+                        <li class="day d-inline border border-black bg-dark text-light">Thursday</li>
+                        <li class="day d-inline border border-black bg-dark text-light">Friday</li>
+                    </ul>
+                </div>
             </div>
 
         </div>
