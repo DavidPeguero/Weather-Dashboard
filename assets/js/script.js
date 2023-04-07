@@ -1,4 +1,5 @@
-var requestUrl = 'http://api.openweathermap.org/data/2.5/forecast/daily?appid=3be2b2b6acc21e3760901d15acf91f72&q=Dallas&cnt=6&units=imperial'
+
+//Initialize these variable on load
 var forecastListEl = document.getElementById('forecast-list');
 var cityEl = document.getElementById('city');
 var tempEl = document.getElementById('temp')
@@ -7,12 +8,17 @@ var humidityEl = document.getElementById('humidity')
 var cityName = "Dallas"
 
 
-var forcastLiClasses = "day d-inline border border-black bg-dark text-light".split(" ");
-function getWeatherData(){
-    fetch(requestUrl).
+function getWeatherData(cName){
+    //format the api call to include the city name when passed in the functoin
+    fetch(`http://api.openweathermap.org/data/2.5/forecast/daily?appid=3be2b2b6acc21e3760901d15acf91f72&q=${cName}&cnt=6&units=imperial`).
         then(function(response){
+            //
             if(response.status === 200){
                 return response.json();
+            }
+            else{
+                console.log("Error: " + response.status);
+                return;
             }
         }).then(function (data){
             var currentDay = data.list[0];
@@ -58,6 +64,6 @@ function getWeatherData(){
         });
 }
 
-getWeatherData();
+getWeatherData("Seattle");
 
 
