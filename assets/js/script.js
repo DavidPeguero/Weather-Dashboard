@@ -1,5 +1,11 @@
 var requestUrl = 'http://api.openweathermap.org/data/2.5/forecast/daily?appid=3be2b2b6acc21e3760901d15acf91f72&q=Dallas&cnt=6&units=imperial'
-var forecastListEl = document.getElementById('forecast-list')
+var forecastListEl = document.getElementById('forecast-list');
+var cityEl = document.getElementById('city');
+var tempEl = document.getElementById('temp')
+var windEl = document.getElementById('wind')
+var humidityEl = document.getElementById('humidity')
+var cityName = "Dallas"
+
 
 var forcastLiClasses = "day d-inline border border-black bg-dark text-light".split(" ");
 function getWeatherData(){
@@ -9,9 +15,11 @@ function getWeatherData(){
                 return response.json();
             }
         }).then(function (data){
-            
-
-
+            var currentDay = data.list[0];
+            cityEl.innerText = `${cityName} (${dayjs.unix(currentDay.dt).format('M/DD/YYYY')})`;
+            tempEl.innerText = 'Temp: ' + currentDay.temp.day + ' °F';
+            windEl.innerText = 'Wind: ' + currentDay.speed + ' MPH';
+            humidityEl.innerText = 'Humidity: ' + currentDay.humidity + '%';
             //For loop that goes over the next 5 days 
             for(var i = 1; i < data.list.length; i++){
                 console.log(data.list[i]);
@@ -30,7 +38,7 @@ function getWeatherData(){
                 //Assign the values of each element in li
                 date.innerText = dayjs.unix(forecastDay.dt).format('M/DD/YYYY');
                 weatherImg.src = `https://openweathermap.org/img/wn/${forecastDay.weather[0].icon}@2x.png`
-                temp.innerText = 'Temp: ' + forecastDay.temp.day + '°F';
+                temp.innerText = 'Temp: ' + forecastDay.temp.day + ' °F';
                 wind.innerText = 'Wind: ' + forecastDay.speed + ' MPH';
                 humidity = 'Humidity: ' + forecastDay.humidity + '%';
 
@@ -50,6 +58,6 @@ function getWeatherData(){
         });
 }
 
-// getWeatherData();
+getWeatherData();
 
 
