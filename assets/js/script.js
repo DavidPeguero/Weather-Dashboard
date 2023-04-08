@@ -14,7 +14,7 @@ var searchHistory = [];
 
 function getWeatherData(cName){
     //format the api call to include the city name when passed in the functoin
-    fetch(`http://api.openweathermap.org/data/2.5/forecast/daily?appid=3be2b2b6acc21e3760901d15acf91f72&q=${cName}&cnt=6&units=imperial`).
+    fetch(`https://api.openweathermap.org/data/2.5/forecast/daily?appid=3be2b2b6acc21e3760901d15acf91f72&q=${cName}&cnt=6&units=imperial`).
         then(function(response){
             //If successful respons from API
             if(response.status === 200){
