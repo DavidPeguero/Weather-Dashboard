@@ -7,10 +7,10 @@ var windEl = document.getElementById("wind");
 var humidityEl = document.getElementById("humidity");
 var searchButtonEl = $("#search-btn");
 var searchBoxEl = $("#search-box");
-var cityName = "Dallas";
+var historyEl = $("#history");
 var searchHistory = [];
 
-// <li class="btn btn-secondary">San Diego</li> History Button example
+
 
 function getWeatherData(cName){
     //format the api call to include the city name when passed in the functoin
@@ -19,14 +19,16 @@ function getWeatherData(cName){
             //
             if(response.status === 200){
                 searchHistory.push(cName);
+                localStorage.setItem("history", JSON.stringify(searchHistory));
+                updateSearchHistory();
                 return response.json();
             }
             else{
-                console.log("Not a valid city")
                 console.log("Error: " + response.status);
                 return;
             }
         }).then(function (data){
+            //Format the main div
             var currentDay = data.list[0];
             cityEl.innerText = `${cName} (${dayjs.unix(currentDay.dt).format('M/DD/YYYY')})`;
             tempEl.innerText = 'Temp: ' + currentDay.temp.day + ' °F';
@@ -70,16 +72,28 @@ function getWeatherData(cName){
         });
 }
 
-function initSearchHistory(){
+function updateSearchHistory(){
+    historyEl.children().remove();
     if(localStorage.getItem("history")){
         searchHistory = JSON.parse(localStorage.getItem("history"));
+        searchHistory.forEach(search => {
+            // <li class="btn btn-secondary">San Diego</li> History Button example
+            var newBtn = $("<li>").text(search).addClass("btn btn-secondary my-1");
+            newBtn.on("click", function(){
+                getWeatherData(search);
+            })
+            historyEl.prepend(newBtn);
+        });
     }
     else{
         console.log("No search history found!")
     }
 }
 
-
+//Event listener to that takes in the valune in the search box and passes it in getWeather data. 
 searchButtonEl.on("click", function(){
     getWeatherData(searchBoxEl.val());
+    console.log(searchHistory)
 })
+
+updateSearchHistory();
