@@ -1,12 +1,16 @@
 
 //Initialize these variable on load
-var forecastListEl = document.getElementById('forecast-list');
-var cityEl = document.getElementById('city');
-var tempEl = document.getElementById('temp')
-var windEl = document.getElementById('wind')
-var humidityEl = document.getElementById('humidity')
-var cityName = "Dallas"
+var forecastListEl = document.getElementById("forecast-list");
+var cityEl = document.getElementById("city");
+var tempEl = document.getElementById("temp");
+var windEl = document.getElementById("wind");
+var humidityEl = document.getElementById("humidity");
+var searchButtonEl = $("#search-btn");
+var searchBoxEl = $("#search-box");
+var cityName = "Dallas";
+var searchHistory = [];
 
+// <li class="btn btn-secondary">San Diego</li> History Button example
 
 function getWeatherData(cName){
     //format the api call to include the city name when passed in the functoin
@@ -14,15 +18,17 @@ function getWeatherData(cName){
         then(function(response){
             //
             if(response.status === 200){
+                searchHistory.push(cName);
                 return response.json();
             }
             else{
+                console.log("Not a valid city")
                 console.log("Error: " + response.status);
                 return;
             }
         }).then(function (data){
             var currentDay = data.list[0];
-            cityEl.innerText = `${cityName} (${dayjs.unix(currentDay.dt).format('M/DD/YYYY')})`;
+            cityEl.innerText = `${cName} (${dayjs.unix(currentDay.dt).format('M/DD/YYYY')})`;
             tempEl.innerText = 'Temp: ' + currentDay.temp.day + ' °F';
             windEl.innerText = 'Wind: ' + currentDay.speed + ' MPH';
             humidityEl.innerText = 'Humidity: ' + currentDay.humidity + '%';
@@ -64,6 +70,16 @@ function getWeatherData(cName){
         });
 }
 
-getWeatherData("Seattle");
+function initSearchHistory(){
+    if(localStorage.getItem("history")){
+        searchHistory = JSON.parse(localStorage.getItem("history"));
+    }
+    else{
+        console.log("No search history found!")
+    }
+}
 
 
+searchButtonEl.on("click", function(){
+    getWeatherData(searchBoxEl.val());
+})
