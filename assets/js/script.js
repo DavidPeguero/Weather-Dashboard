@@ -16,11 +16,27 @@ function getWeatherData(cName){
     //format the api call to include the city name when passed in the functoin
     fetch(`http://api.openweathermap.org/data/2.5/forecast/daily?appid=3be2b2b6acc21e3760901d15acf91f72&q=${cName}&cnt=6&units=imperial`).
         then(function(response){
-            //
+            //If successful respons from API
             if(response.status === 200){
-                searchHistory.push(cName);
-                localStorage.setItem("history", JSON.stringify(searchHistory));
-                updateSearchHistory();
+                //Format the string to capitalize first letter to limit duplicate entries
+                var formattedCName = cName;
+                formattedCName = formattedCName.charAt(0).toUpperCase() + formattedCName.slice(1).toLowerCase();
+                console.log(formattedCName)
+                //If not included in the search history add it to the search history
+                if(!searchHistory.includes(formattedCName)){
+                    searchHistory.push(formattedCName);
+                    localStorage.setItem("history", JSON.stringify(searchHistory));
+                    updateSearchHistory();
+                }
+                //If it is included already in the search history just push to the top of the search history.
+                else{
+                    var targetIndex = searchHistory.findIndex(search => search === formattedCName);
+                    var oldSearch = searchHistory.splice(targetIndex, 1);
+                    searchHistory.push(oldSearch[0]);
+                    localStorage.setItem("history", JSON.stringify(searchHistory));
+                    updateSearchHistory();
+                }
+                
                 return response.json();
             }
             else{
@@ -97,3 +113,10 @@ searchButtonEl.on("click", function(){
 })
 
 updateSearchHistory();
+
+var test = ["yes", "no", "maybe"];
+var tempNo = test.splice(1,1);
+console.log(test)
+console.log(tempNo)
+test.unshift(tempNo[0]);
+console.log(test)
