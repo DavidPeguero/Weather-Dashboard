@@ -51,6 +51,7 @@ function getWeatherData(cName){
             windEl.innerText = 'Wind: ' + currentDay.speed + ' MPH';
             humidityEl.innerText = 'Humidity: ' + currentDay.humidity + '%';
             //For loop that goes over the next 5 days 
+            forecastListEl.innerHTML = '';
             for(var i = 1; i < data.list.length; i++){
                 console.log(data.list[i]);
 
