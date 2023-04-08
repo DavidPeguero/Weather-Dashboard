@@ -16,17 +16,15 @@
     </header>
     <div class="container-fluid my-5">
         <div class="row">
-            <div class="col col-3 flex">
+            <div class="col col-3 col-lg-3 flex mb-3">
                 <h3>Search for a City</h3>
                 <input id="search-box"class="text mt-2 w-100" type="text" placeholder="Ex. Seattle"/><br>
                 <button id="search-btn" class="btn btn-primary my-2 w-100">Search for City</button>
                 <div class="border border-dark-subtle mb-2"></div>
-                <ul id="history" class="list-group">
-                    
-                </ul>
+                <ul id="history" class="list-group"></ul>
             </div>
-            <div class="col col-9">
-                <div class="border border-black border-2 me-3 p-3">
+            <div class="col col-lg-9">
+                <div class="border border-black border-2 me-3 p-3 ">
                     <h2 id="city"></h2>
                     <p id="temp"></p>
                     <p id="wind"></p>
@@ -34,8 +32,7 @@
                 </div>
                 <div id="forecast my-3">
                     <h3>5-Day Forecast</h3>
-                    <ul id="forecast-list" class="d-flex day-list list-inline gap-lg-5 gap-2">
-                        <!-- <li class="day d-inline border border-black bg-dark text-light">Monday</li> -->
+                    <ul id="forecast-list" class="d-flex flex-wrap day-list list-inline gap-lg-5 gap-2">
                     </ul>
                 </div>
             </div>

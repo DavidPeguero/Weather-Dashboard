@@ -3,3 +3,13 @@
     margin: 0;
 }
 
+.day{
+    font-size: 12px;
+}
+
+
+/* @media screen and (max-width : 536px) {
+    #forecast-list{
+        display:
+    }
+} */

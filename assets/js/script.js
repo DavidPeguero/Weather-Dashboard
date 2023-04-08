@@ -73,8 +73,9 @@ function getWeatherData(cName){
                 humidity = 'Humidity: ' + forecastDay.humidity + '%';
 
                 //Classes for the li and inner attributes
-                forecastDayLi.classList.add('d-inline', 'border' ,'border-black' ,'bg-dark' ,'text-light', 'p-3');
+                forecastDayLi.classList.add('day','d-inline', 'border' ,'border-black' ,'bg-dark' ,'text-light', 'p-3');
                 date.classList.add('fw-bold');
+                weatherImg.classList.add('float-left', "img-fluid", "w-50");
                 //Append each attribute of the forecast to the forecast li
                 forecastDayLi.append(date);
                 forecastDayLi.append(weatherImg);
@@ -113,10 +114,3 @@ searchButtonEl.on("click", function(){
 })
 
 updateSearchHistory();
-
-var test = ["yes", "no", "maybe"];
-var tempNo = test.splice(1,1);
-console.log(test)
-console.log(tempNo)
-test.unshift(tempNo[0]);
-console.log(test)
